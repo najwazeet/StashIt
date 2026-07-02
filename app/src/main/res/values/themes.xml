@@ -10,11 +10,16 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/on_surface</item>
-        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:statusBarColor">@color/surface</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_18pt_regular</item>
+        <item name="android:fontFamily">@font/inter_18pt_regular</item>
     </style>
 
     <style name="Theme.StashIt" parent="Base.Theme.StashIt" />
+
+    <style name="ShapeAppearance.StashIt.Button" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
 </resources>
