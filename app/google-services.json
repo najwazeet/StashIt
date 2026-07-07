@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "636935991520",
+    "project_id": "stashit-2eaeb",
+    "storage_bucket": "stashit-2eaeb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636935991520:android:1d85f8f73c2872438be085",
+        "android_client_info": {
+          "package_name": "com.example.stashit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlaqdPDUY6zYuKmj8mLN1GSFmZG5jtIMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
