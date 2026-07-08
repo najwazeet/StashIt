@@ -106,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToDaftarAcara() {
-        val intent = Intent(this, DaftarAcaraActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

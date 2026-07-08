@@ -7,27 +7,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.stashit.R
+import com.example.stashit.data.AcaraWithTotal
 import com.example.stashit.databinding.FragmentStatsBinding
 import com.example.stashit.databinding.ItemLegendBinding
+import com.example.stashit.repository.FirestoreRepository
 import com.example.stashit.view.DonutSlice
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 import android.content.Intent
-import com.example.stashit.NotificationsActivity
+import com.example.stashit.NotificationUiActivity
 
 class StatsFragment : Fragment() {
 
     private var _binding: FragmentStatsBinding? = null
     private val binding get() = _binding!!
+    private val repository = FirestoreRepository()
 
-    data class AllocationStat(val label: String, val amount: Long, val color: Int)
-
-    private val allocationStats = listOf(
-        AllocationStat("Tiket Pesawat", 1_480_000, Color.parseColor("#2c6956")),
-        AllocationStat("Penginapan", 1_200_000, Color.parseColor("#78555e")),
-        AllocationStat("Konsumsi", 900_000, Color.parseColor("#645880")),
-        AllocationStat("Transportasi", 650_000, Color.parseColor("#a8e6cf"))
+    private val palette = listOf(
+        Color.parseColor("#2c6956"),
+        Color.parseColor("#78555e"),
+        Color.parseColor("#645880"),
+        Color.parseColor("#a8e6cf"),
+        Color.parseColor("#e6a8c1"),
+        Color.parseColor("#a8c1e6")
     )
 
     override fun onCreateView(
@@ -39,52 +44,69 @@ class StatsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupDonutChart()
-        setupLegend()
-        setupSummaryCards()
         setupCardNavigation()
     }
 
-    private fun setupDonutChart() {
-        val slices = allocationStats.map { DonutSlice(it.amount.toFloat(), it.color) }
+    override fun onResume() {
+        super.onResume()
+        loadStats()
+    }
+
+    private fun loadStats() {
+        lifecycleScope.launch {
+            try {
+                val acaraWithTotals = repository.getAcaraWithTotals()
+                setupDonutChart(acaraWithTotals)
+                setupLegend(acaraWithTotals)
+                setupSummaryCards(acaraWithTotals)
+            } catch (e: Exception) {
+                // Gagal fetch, biarkan tampilan kosong/default
+            }
+        }
+    }
+
+    private fun setupDonutChart(list: List<AcaraWithTotal>) {
+        val slices = list.mapIndexed { index, item ->
+            DonutSlice(item.totalTerkumpul.toFloat(), palette[index % palette.size])
+        }
         binding.donutChart.setData(slices)
 
-        val total = allocationStats.sumOf { it.amount }
+        val total = list.sumOf { it.totalTerkumpul }
         val rupiah = NumberFormat.getNumberInstance(Locale("in", "ID"))
         binding.tvTotalSaved.text = "Rp ${rupiah.format(total)}"
     }
 
-    private fun setupLegend() {
-        val total = allocationStats.sumOf { it.amount }
+    private fun setupLegend(list: List<AcaraWithTotal>) {
+        val total = list.sumOf { it.totalTerkumpul }
         binding.legendContainer.removeAllViews()
 
-        allocationStats.forEach { stat ->
+        list.forEachIndexed { index, item ->
             val itemBinding = ItemLegendBinding.inflate(
                 LayoutInflater.from(requireContext()), binding.legendContainer, false
             )
             val percent = if (total == 0L) 0
-            else ((stat.amount.toDouble() / total) * 100).toInt()
+            else ((item.totalTerkumpul.toDouble() / total) * 100).toInt()
 
-            itemBinding.tvLegendLabel.text = stat.label
+            itemBinding.tvLegendLabel.text = item.acara.nama_acara
             itemBinding.tvLegendPercent.text = "$percent%"
             itemBinding.dotColor.background = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
-                setColor(stat.color)
+                setColor(palette[index % palette.size])
             }
             binding.legendContainer.addView(itemBinding.root)
         }
     }
 
-    private fun setupSummaryCards() {
-        // Dummy data ringkasan
-        binding.tvAvgMonthly.text = "Rp 750rb"
-        binding.tvActiveGoals.text = "3"
-        binding.tvCompletedGoals.text = "12"
+    private fun setupSummaryCards(list: List<AcaraWithTotal>) {
+        val activeCount = list.count { !it.isCompleted }
+        val completedCount = list.count { it.isCompleted }
+
+        binding.tvAvgMonthly.text = "Rp 750rb" // TODO: hitung dari history asli kalau dibutuhkan
+        binding.tvActiveGoals.text = activeCount.toString()
+        binding.tvCompletedGoals.text = completedCount.toString()
     }
 
     private fun setupCardNavigation() {
-        // Klik card "Completed Goals" -> ke halaman Events Completed
         binding.cardCompletedGoals.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, EventsCompletedFragment())
@@ -92,7 +114,6 @@ class StatsFragment : Fragment() {
                 .commit()
         }
 
-        // Klik card "Active Goals" -> pindah tab Home lewat Bottom Nav
         binding.cardActiveGoals.setOnClickListener {
             requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
                 R.id.bottomNav
@@ -100,7 +121,7 @@ class StatsFragment : Fragment() {
         }
 
         binding.btnNotification.setOnClickListener {
-            startActivity(Intent(requireContext(), NotificationsActivity::class.java))
+            startActivity(Intent(requireContext(), NotificationUiActivity::class.java))
         }
     }
 

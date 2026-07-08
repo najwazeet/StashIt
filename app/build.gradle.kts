@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")   // <-- baris baru ini
+    implementation(libs.kotlinx.coroutines.play.services)
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:34.15.0"))

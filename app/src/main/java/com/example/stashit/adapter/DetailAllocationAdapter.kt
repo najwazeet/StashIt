@@ -2,16 +2,20 @@ package com.example.stashit.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stashit.R
 import com.example.stashit.data.DetailAllocation
 import com.example.stashit.databinding.ItemDetailAllocationBinding
 import java.text.NumberFormat
 import java.util.Locale
 
 class DetailAllocationAdapter(
-    private val items: List<DetailAllocation>,
+    private val items: MutableList<DetailAllocation>,
     private val onAddFundClick: (Int) -> Unit,
-    private val onItemClick: (Int) -> Unit
+    private val onItemClick: (Int) -> Unit,
+    private val onEditClick: (Int) -> Unit,
+    private val onDeleteClick: (Int) -> Unit
 ) : RecyclerView.Adapter<DetailAllocationAdapter.DetailAllocationViewHolder>() {
 
     inner class DetailAllocationViewHolder(val binding: ItemDetailAllocationBinding) :
@@ -43,6 +47,30 @@ class DetailAllocationAdapter(
             root.setOnClickListener {
                 onItemClick(holder.adapterPosition)
             }
+            btnMoreOptions.setOnClickListener { anchorView ->
+                val popup = PopupMenu(anchorView.context, anchorView)
+                popup.menuInflater.inflate(R.menu.menu_allocation_options, popup.menu)
+                popup.setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.action_edit -> {
+                            onEditClick(holder.adapterPosition)
+                            true
+                        }
+                        R.id.action_delete -> {
+                            onDeleteClick(holder.adapterPosition)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                popup.show()
+            }
         }
+    }
+
+    fun updateData(newItems: List<DetailAllocation>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
     }
 }

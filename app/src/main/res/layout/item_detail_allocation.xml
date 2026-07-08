@@ -97,6 +97,19 @@
                 android:progress="60" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/btnMoreOptions"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:padding="2dp"
+            android:src="@drawable/ic_more_vert"
+            app:tint="@color/on_surface_variant"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Opsi lainnya" />
+
         <!-- Mini FAB tambah dana -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAddFund"

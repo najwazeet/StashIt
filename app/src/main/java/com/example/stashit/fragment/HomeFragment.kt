@@ -5,22 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stashit.AddGoalActivity
 import com.example.stashit.DetailEventActivity
+import com.example.stashit.NotificationUiActivity
 import com.example.stashit.adapter.AcaraAdapter
-import com.example.stashit.data.Acara
+import com.example.stashit.data.AcaraUiModel
 import com.example.stashit.databinding.FragmentHomeBinding
+import com.example.stashit.repository.FirestoreRepository
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.example.stashit.NotificationsActivity
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val repository = FirestoreRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,27 +38,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dummyAcara = listOf(
-            Acara("Trip ke Bandung", "Bandung, Jawa Barat", "12 Agu 2026", "Liburan", 2_000_000, 800_000),
-            Acara("Konser Coldplay", "Jakarta", "3 Sep 2026", "Konser", 3_500_000, 3_150_000),
-            Acara("Wisuda Sahabat", "Denpasar, Bali", "20 Jul 2026", "Acara", 500_000, 120_000)
-        )
-
         binding.rvAcara.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvAcara.adapter = AcaraAdapter(dummyAcara) {
-            startActivity(Intent(requireContext(), DetailEventActivity::class.java))
-        }
 
-        val totalTerkumpul = dummyAcara.sumOf { it.nominalTerkumpul }
-        val totalTarget = dummyAcara.sumOf { it.targetNominal }
-        val persentase = if (totalTarget == 0L) 0
-        else ((totalTerkumpul.toDouble() / totalTarget) * 100).toInt().coerceIn(0, 100)
-        val sisa = (totalTarget - totalTerkumpul).coerceAtLeast(0)
-
-        val rupiah = NumberFormat.getNumberInstance(Locale("in", "ID"))
-        binding.tvTotalTabungan.text = "Rp ${rupiah.format(totalTerkumpul)}"
-        binding.progressTotal.progress = persentase
-        binding.tvProgressCaption.text = "$persentase% dari target • Rp ${rupiah.format(sisa)} lagi"
+        loadAcaraData()
 
         binding.fabAddGoal.setOnClickListener {
             startActivity(Intent(requireContext(), AddGoalActivity::class.java))
@@ -69,7 +57,52 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnNotification.setOnClickListener {
-            startActivity(Intent(requireContext(), NotificationsActivity::class.java))
+            startActivity(Intent(requireContext(), NotificationUiActivity::class.java))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadAcaraData()
+    }
+
+    private fun loadAcaraData() {
+        lifecycleScope.launch {
+            try {
+                val acaraList = repository.getAcaraList()
+
+                val uiModelList = acaraList.map { acara ->
+                    val rincianList = repository.getRincianBiayaList(acara.idAcara)
+                    val totalTerkumpul = rincianList.sumOf { it.nominal_terkumpul }
+                    val totalTarget = rincianList.sumOf { it.target_nominal }
+                    AcaraUiModel(acara, totalTerkumpul, totalTarget)
+                }
+
+                binding.rvAcara.adapter = AcaraAdapter(uiModelList) { acara ->
+                    val intent = Intent(requireContext(), DetailEventActivity::class.java)
+                    intent.putExtra("id_acara", acara.idAcara)
+                    startActivity(intent)
+                }
+
+                val totalTerkumpul = uiModelList.sumOf { it.totalTerkumpul }
+                val totalTarget = uiModelList.sumOf { it.totalTarget }
+                val persentase = if (totalTarget == 0.0) 0
+                else ((totalTerkumpul / totalTarget) * 100).toInt().coerceIn(0, 100)
+                val sisa = (totalTarget - totalTerkumpul).coerceAtLeast(0.0)
+
+                val rupiah = NumberFormat.getNumberInstance(Locale("in", "ID"))
+                binding.tvTotalTabungan.text = "Rp ${rupiah.format(totalTerkumpul.toLong())}"
+                binding.progressTotal.progress = persentase
+                binding.tvProgressCaption.text =
+                    "$persentase% dari target • Rp ${rupiah.format(sisa.toLong())} lagi"
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    requireContext(),
+                    "Gagal memuat data: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

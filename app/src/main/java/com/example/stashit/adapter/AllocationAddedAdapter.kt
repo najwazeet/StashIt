@@ -35,4 +35,6 @@ class AllocationAddedAdapter(
         items.add(0, item)
         notifyItemInserted(0)
     }
+
+    fun getItems(): List<AllocationItem> = items.toList()
 }

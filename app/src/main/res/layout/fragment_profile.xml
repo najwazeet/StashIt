@@ -1,29 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+    android:background="#F5F7F8">
 
     <TextView
+        android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="24sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Memuat..."
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:fontFamily="@font/inter"
-        android:textColor="@color/on_surface" />
+        android:textColor="#00897B"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Halaman ini masih dalam pengembangan"
-        android:textSize="14sp"
-        android:fontFamily="@font/inter"
-        android:textColor="@color/on_surface_variant" />
+    <ImageView
+        android:id="@+id/ivHeaderAvatar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_bell"
+        android:contentDescription="Notifikasi"
+        app:layout_constraintTop_toTopOf="@id/tvAppName"
+        app:layout_constraintBottom_toBottomOf="@id/tvAppName"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/tvAppName"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="100dp">
+
+            <FrameLayout
+                android:id="@+id/avatarContainer"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <View
+                    android:id="@+id/avatarCircle"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/bg_circle_solid" />
+
+                <TextView
+                    android:id="@+id/tvAvatarInitial"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="?"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/ivEditBadge"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/bg_circle_green"
+                android:src="@android:drawable/ic_menu_edit"
+                android:padding="5dp"
+                android:contentDescription="Edit foto"
+                app:layout_constraintBottom_toBottomOf="@id/avatarContainer"
+                app:layout_constraintEnd_toEndOf="@id/avatarContainer" />
+
+            <TextView
+                android:id="@+id/tvNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Memuat..."
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintTop_toBottomOf="@id/avatarContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Memuat..."
+                android:textSize="13sp"
+                android:textColor="#777777"
+                app:layout_constraintTop_toBottomOf="@id/tvNama"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <include
+                android:id="@+id/itemEditProfile"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                app:layout_constraintTop_toBottomOf="@id/tvEmail" />
+
+            <include
+                android:id="@+id/itemNotifications"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/itemEditProfile" />
+
+            <include
+                android:id="@+id/itemSecurity"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/itemNotifications" />
+
+            <include
+                android:id="@+id/itemAbout"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/itemSecurity" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="28dp"
+                android:text="Log Out"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_red_rounded"
+                app:backgroundTint="@null"
+                app:icon="@drawable/ic_logout"
+                app:iconTint="@android:color/white"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/itemAbout" />
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Version 2.4.0 (Luminous)"
+                android:textSize="11sp"
+                android:textColor="#BBBBBB"
+                app:layout_constraintTop_toBottomOf="@id/btnLogout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

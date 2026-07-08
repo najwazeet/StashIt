@@ -1,6 +1,7 @@
 package com.example.stashit.data
 
 data class DetailAllocation(
+    val idRincianBiaya: String,
     val title: String,
     val target: Long,
     val terkumpul: Long

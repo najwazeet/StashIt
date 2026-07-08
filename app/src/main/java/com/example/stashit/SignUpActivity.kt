@@ -131,7 +131,7 @@ class SignUpActivity : AppCompatActivity() {
                         .set(userData)
                         .addOnSuccessListener {
                             Toast.makeText(this, "Akun berhasil dibuat", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, DaftarAcaraActivity::class.java)
+                            val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
