@@ -6,14 +6,26 @@ import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stashit.databinding.ActivityLoginBinding
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var auth: FirebaseAuth
     private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
+        // Cek sesi aktif: kalau user udah login sebelumnya, langsung skip ke DaftarAcaraActivity
+        if (auth.currentUser != null) {
+            goToDaftarAcara()
+            return
+        }
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -44,16 +56,26 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            Toast.makeText(this, "Login dengan $email", Toast.LENGTH_SHORT).show()
+            binding.btnLogin.isEnabled = false
 
-            // Kalau udah berhasil login, misal pindah ke halaman utama:
-            // val intent = Intent(this, DaftarAcaraActivity::class.java)
-            // startActivity(intent)
-            // finish()
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener {
+                    val uid = auth.currentUser?.uid
+                    if (uid != null) {
+                        recordLoginSession(uid)
+                    }
+                    Toast.makeText(this, "Login berhasil", Toast.LENGTH_SHORT).show()
+                    goToDaftarAcara()
+                }
+                .addOnFailureListener { e ->
+                    binding.btnLogin.isEnabled = true
+                    Toast.makeText(this, "Login gagal: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
         }
 
         binding.btnGoogle.setOnClickListener {
             Toast.makeText(this, "Continue with Google diklik", Toast.LENGTH_SHORT).show()
+            // TODO: Google Sign-In, ini butuh setup terpisah (bahas nanti kalau udah siap)
         }
 
         binding.tvForgotPassword.setOnClickListener {
@@ -64,5 +86,28 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun recordLoginSession(uid: String) {
+        val db = FirebaseFirestore.getInstance()
+        val deviceId = android.provider.Settings.Secure.getString(
+            contentResolver, android.provider.Settings.Secure.ANDROID_ID
+        )
+        val deviceName = "${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}"
+
+        val sessionData = hashMapOf(
+            "deviceName" to deviceName,
+            "loginTime" to Timestamp.now()
+        )
+
+        db.collection("users").document(uid).collection("sessions")
+            .document(deviceId)
+            .set(sessionData)
+    }
+
+    private fun goToDaftarAcara() {
+        val intent = Intent(this, DaftarAcaraActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

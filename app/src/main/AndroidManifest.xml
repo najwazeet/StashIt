@@ -42,6 +42,24 @@
         <activity
             android:name=".NotificationsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SecurityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivityHistory"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

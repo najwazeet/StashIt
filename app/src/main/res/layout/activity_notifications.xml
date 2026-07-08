@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_back_arrow"
+        android:contentDescription="Kembali"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Notifications"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/on_surface"
+        app:layout_constraintTop_toTopOf="@id/ivBack"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintStart_toEndOf="@id/ivBack" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- Icon besar + deskripsi -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:padding="18dp"
+                    android:background="@drawable/bg_circle_gray"
+                    android:src="@drawable/ic_bell"
+                    app:tint="#616161"
+                    android:contentDescription="Notifikasi" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Atur kapan Stashit mengingatkanmu"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/on_surface_variant"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- ===== SECTION: TABUNGAN & ACARA ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="24dp"
+                android:text="TABUNGAN &amp; ACARA"
+                android:textSize="12sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Reminder Tabungan -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="9dp"
+                            android:background="@drawable/bg_circle_gray"
+                            android:src="@drawable/ic_bell"
+                            app:tint="#616161"
+                            android:contentDescription="Reminder" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="14dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Reminder Tabungan"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Ingatkan target tabungan acara"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface_variant" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchReminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:thumbTint="@color/switch_thumb_selector"
+                            android:trackTint="@color/switch_track_selector" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:background="#F0F0F0" />
+
+                    <!-- Update Progress Acara -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="9dp"
+                            android:background="@drawable/bg_circle_gray"
+                            android:src="@drawable/ic_bell"
+                            app:tint="#616161"
+                            android:contentDescription="Progress" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="14dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Update Progress Acara"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Notifikasi saat progres berubah"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface_variant" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:thumbTint="@color/switch_thumb_selector"
+                            android:trackTint="@color/switch_track_selector" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:background="#F0F0F0" />
+
+                    <!-- H-3 Sebelum Acara -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="9dp"
+                            android:background="@drawable/bg_circle_gray"
+                            android:src="@drawable/ic_bell"
+                            app:tint="#616161"
+                            android:contentDescription="H-3" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="14dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="H-3 Sebelum Acara"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Ingatkan 3 hari sebelum acara dimulai"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface_variant" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchH3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:thumbTint="@color/switch_thumb_selector"
+                            android:trackTint="@color/switch_track_selector" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ===== SECTION: LAINNYA ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:text="LAINNYA"
+                android:textSize="12sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Notifikasi via Email -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="9dp"
+                            android:background="@drawable/bg_circle_gray"
+                            android:src="@drawable/ic_bell"
+                            app:tint="#616161"
+                            android:contentDescription="Email" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="14dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Notifikasi via Email"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Kirim salinan reminder ke email"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface_variant" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:thumbTint="@color/switch_thumb_selector"
+                            android:trackTint="@color/switch_track_selector" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:background="#F0F0F0" />
+
+                    <!-- Suara -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="9dp"
+                            android:background="@drawable/bg_circle_gray"
+                            android:src="@android:drawable/ic_lock_silent_mode_off"
+                            app:tint="#616161"
+                            android:contentDescription="Suara" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="14dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Suara Notifikasi"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Bunyikan suara saat notifikasi masuk"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface_variant" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchSound"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:thumbTint="@color/switch_thumb_selector"
+                            android:trackTint="@color/switch_track_selector" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:background="#F0F0F0" />
+
+                    <!-- Getar -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="9dp"
+                            android:background="@drawable/bg_circle_gray"
+                            android:src="@android:drawable/ic_lock_silent_mode"
+                            app:tint="#616161"
+                            android:contentDescription="Getar" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="14dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Getar"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Getarkan device saat notifikasi masuk"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/inter"
+                                android:textColor="@color/on_surface_variant" />
+                        </LinearLayout>
+
+                        <Switch
+                            android:id="@+id/switchVibration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:thumbTint="@color/switch_thumb_selector"
+                            android:trackTint="@color/switch_track_selector" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

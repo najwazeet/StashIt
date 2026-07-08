@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7F8">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_back_arrow"
+        android:contentDescription="Kembali"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Security"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#00897B"
+        app:layout_constraintTop_toTopOf="@id/ivBack"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintStart_toEndOf="@id/ivBack" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="28dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/tvSectionAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACCOUNT"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#999999"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <include
+                android:id="@+id/itemChangePassword"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tvSectionAccount" />
+
+            <include
+                android:id="@+id/itemChangeEmail"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/itemChangePassword" />
+
+            <TextView
+                android:id="@+id/tvSectionAdvanced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="ADVANCED PROTECTION"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#999999"
+                app:layout_constraintTop_toBottomOf="@id/itemChangeEmail"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <include
+                android:id="@+id/itemTwoFactor"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tvSectionAdvanced" />
+
+            <include
+                android:id="@+id/itemLoginActivity"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/itemTwoFactor" />
+
+            <TextView
+                android:id="@+id/tvSectionDanger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="DANGER ZONE"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#C62828"
+                app:layout_constraintTop_toBottomOf="@id/itemLoginActivity"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <include
+                android:id="@+id/itemDeleteAccount"
+                layout="@layout/item_profile_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tvSectionDanger" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
