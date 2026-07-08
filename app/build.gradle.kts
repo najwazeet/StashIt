@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.cardview:cardview:1.0.0")   // <-- baris baru ini
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:34.15.0"))

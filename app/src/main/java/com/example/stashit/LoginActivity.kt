@@ -6,7 +6,9 @@ import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stashit.databinding.ActivityLoginBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
@@ -58,6 +60,10 @@ class LoginActivity : AppCompatActivity() {
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
+                    val uid = auth.currentUser?.uid
+                    if (uid != null) {
+                        recordLoginSession(uid)
+                    }
                     Toast.makeText(this, "Login berhasil", Toast.LENGTH_SHORT).show()
                     goToDaftarAcara()
                 }
@@ -80,6 +86,23 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun recordLoginSession(uid: String) {
+        val db = FirebaseFirestore.getInstance()
+        val deviceId = android.provider.Settings.Secure.getString(
+            contentResolver, android.provider.Settings.Secure.ANDROID_ID
+        )
+        val deviceName = "${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}"
+
+        val sessionData = hashMapOf(
+            "deviceName" to deviceName,
+            "loginTime" to Timestamp.now()
+        )
+
+        db.collection("users").document(uid).collection("sessions")
+            .document(deviceId)
+            .set(sessionData)
     }
 
     private fun goToDaftarAcara() {

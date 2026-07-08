@@ -122,7 +122,9 @@ class SignUpActivity : AppCompatActivity() {
                     val userData = hashMapOf(
                         "nama" to name,
                         "email" to email,
-                        "foto_profil" to ""
+                        "foto_profil" to "",
+                        "avatar_color" to "mint",
+                        "created_at" to com.google.firebase.firestore.FieldValue.serverTimestamp()
                     )
 
                     db.collection("users").document(uid)
