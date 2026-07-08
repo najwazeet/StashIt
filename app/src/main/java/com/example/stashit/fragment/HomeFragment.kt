@@ -17,6 +17,8 @@ import com.example.stashit.data.AcaraUiModel
 import com.example.stashit.databinding.FragmentHomeBinding
 import com.example.stashit.repository.FirestoreRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
@@ -27,6 +29,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val repository = FirestoreRepository()
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,6 +44,7 @@ class HomeFragment : Fragment() {
 
         binding.rvAcara.layoutManager = LinearLayoutManager(requireContext())
 
+        loadUserName()
         loadAcaraData()
 
         binding.fabAddGoal.setOnClickListener {
@@ -63,7 +68,24 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        loadUserName()
         loadAcaraData()
+    }
+
+    private fun loadUserName() {
+        val uid = auth.currentUser?.uid ?: return
+
+        db.collection("users").document(uid)
+            .get()
+            .addOnSuccessListener { document ->
+                if (_binding == null) return@addOnSuccessListener // fragment view sudah destroyed
+                val nama = document.getString("nama") ?: "Pengguna"
+                binding.tvGreeting.text = "Halo, $nama!"
+            }
+            .addOnFailureListener {
+                if (_binding == null) return@addOnFailureListener
+                binding.tvGreeting.text = "Halo!"
+            }
     }
 
     private fun loadAcaraData() {

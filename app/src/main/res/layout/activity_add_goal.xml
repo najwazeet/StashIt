@@ -81,6 +81,34 @@
                 android:singleLine="true"
                 android:imeOptions="actionNext" />
 
+            <!-- Lokasi -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="LOKASI"
+                android:textSize="12sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant" />
+
+            <EditText
+                android:id="@+id/etLokasi"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_pill"
+                android:paddingHorizontal="20dp"
+                android:hint="Contoh: Bandung, Jawa Barat"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/on_surface_variant"
+                android:inputType="text"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
+
             <!-- Target Date -->
             <TextView
                 android:layout_width="wrap_content"

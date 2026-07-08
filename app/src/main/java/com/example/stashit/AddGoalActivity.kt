@@ -45,11 +45,16 @@ class AddGoalActivity : AppCompatActivity() {
 
     private fun handleCreateGoal() {
         val goalName = binding.etGoalName.text.toString().trim()
+        val lokasi = binding.etLokasi.text.toString().trim()
         val targetDate = binding.etTargetDate.text.toString().trim()
         val targetAmount = allocationList.sumOf { it.amount }
 
         if (goalName.isEmpty()) {
             Toast.makeText(this, "Nama goal tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (lokasi.isEmpty()) {
+            Toast.makeText(this, "Lokasi tidak boleh kosong", Toast.LENGTH_SHORT).show()
             return
         }
         if (targetDate.isEmpty()) {
@@ -76,7 +81,7 @@ class AddGoalActivity : AppCompatActivity() {
                     id_user = currentUserId,
                     nama_acara = goalName,
                     tanggal = targetDate,
-                    lokasi = "",
+                    lokasi = lokasi,
                     target_nominal = targetAmount.toDouble()
                 )
                 val idAcara = repository.addAcara(acara)
