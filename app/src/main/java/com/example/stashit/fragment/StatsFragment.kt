@@ -101,7 +101,6 @@ class StatsFragment : Fragment() {
         val activeCount = list.count { !it.isCompleted }
         val completedCount = list.count { it.isCompleted }
 
-        binding.tvAvgMonthly.text = "Rp 750rb" // TODO: hitung dari history asli kalau dibutuhkan
         binding.tvActiveGoals.text = activeCount.toString()
         binding.tvCompletedGoals.text = completedCount.toString()
     }
