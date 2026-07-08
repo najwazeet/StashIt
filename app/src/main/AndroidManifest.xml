@@ -13,6 +13,14 @@
         android:theme="@style/Theme.StashIt">
         <activity
             android:name=".LoginActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,13 +28,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".AddGoalActivity"
             android:exported="false" />
         <activity
-            android:name=".DaftarAcaraActivity"
+            android:name=".DetailEventActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".AllocationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddAllocationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationsActivity"
             android:exported="false" />
     </application>
 

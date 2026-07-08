@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="32dp">
+
+                <!-- Baris header: greeting + ikon notif -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvGreeting"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Halo, Najwa!"
+                        android:textSize="16sp"
+                        android:textColor="@color/on_surface_variant"
+                        android:fontFamily="@font/inter" />
+
+                    <ImageView
+                        android:id="@+id/btnNotification"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_notification"
+                        app:tint="@color/primary"
+                        android:contentDescription="Notification" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvLabelTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="TOTAL TABUNGAN KAMU"
+                    android:textSize="12sp"
+                    android:letterSpacing="0.08"
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/inter" />
+
+                <TextView
+                    android:id="@+id/tvTotalTabungan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Rp 2.450.000"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/on_surface" />
+
+                <ProgressBar
+                    android:id="@+id/progressTotal"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="16dp"
+                    android:progressDrawable="@drawable/progress_pill_drawable"
+                    android:max="100"
+                    android:progress="62" />
+
+                <TextView
+                    android:id="@+id/tvProgressCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="62% dari target • Rp 1.500.000 lagi"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/on_surface_variant" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingHorizontal="24dp"
+                android:text="ACARA KAMU"
+                android:textSize="13sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAcara"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="24dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_acara" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_add"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/primary"
+        app:fabSize="normal"
+        android:contentDescription="Tambah Goal" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

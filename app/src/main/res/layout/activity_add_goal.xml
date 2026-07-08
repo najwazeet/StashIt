@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- ===== APP BAR ===== -->
+    <LinearLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Buat Goal Baru"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/on_surface" />
+    </LinearLayout>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="32dp">
+
+            <!-- Goal Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="NAMA GOAL"
+                android:textSize="12sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant" />
+
+            <EditText
+                android:id="@+id/etGoalName"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_pill"
+                android:paddingHorizontal="20dp"
+                android:hint="Contoh: Trip ke Bali"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/on_surface_variant"
+                android:inputType="text"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
+
+            <!-- Target Date -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="TARGET TANGGAL"
+                android:textSize="12sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/etTargetDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_input_pill"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="52dp"
+                    android:hint="Pilih tanggal"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/on_surface"
+                    android:textColorHint="@color/on_surface_variant"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:cursorVisible="false" />
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_calendar"
+                    android:contentDescription="Calendar" />
+            </FrameLayout>
+
+            <!-- ===== SET YOUR ALLOCATIONS ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="SET YOUR ALLOCATIONS"
+                android:textSize="13sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/secondary" />
+
+            <!-- Input row: nama alokasi + nominal + tombol add -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/border_mint_soft"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <EditText
+                        android:id="@+id/etAllocationName"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_input_pill"
+                        android:paddingHorizontal="16dp"
+                        android:hint="Nama kebutuhan (misal: Tiket Pesawat)"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter"
+                        android:textColor="@color/on_surface"
+                        android:textColorHint="@color/on_surface_variant"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="12dp">
+
+                        <EditText
+                            android:id="@+id/etAllocationAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input_pill"
+                            android:paddingHorizontal="16dp"
+                            android:hint="Rp 0"
+                            android:inputType="number"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/inter"
+                            android:textColor="@color/on_surface"
+                            android:textColorHint="@color/on_surface_variant"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone" />
+
+                        <ImageButton
+                            android:id="@+id/btnAddAllocation"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="12dp"
+                            android:background="@drawable/bg_circle_add"
+                            android:src="@drawable/ic_add"
+                            android:contentDescription="Add allocation" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- List alokasi yang sudah ditambahkan -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAllocations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_allocation"
+                xmlns:tools="http://schemas.android.com/tools" />
+
+            <!-- Total nominal alokasi -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Target"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/on_surface_variant" />
+
+                <TextView
+                    android:id="@+id/tvTotalAllocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/primary" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ===== BOTTOM FIXED BUTTON ===== -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateGoal"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Create Goal &amp; Start Saving"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/inter"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primary"
+            app:cornerRadius="999dp"
+            app:elevation="0dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

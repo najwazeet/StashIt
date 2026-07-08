@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingTop="12dp"
+    android:paddingBottom="32dp">
+
+    <!-- Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_progress_pill"
+        android:backgroundTint="@color/border_input" />
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Tambah Tabungan"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/on_surface" />
+
+    <TextView
+        android:id="@+id/tvAllocationTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:text="untuk Tiket Pesawat"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/on_surface_variant" />
+
+    <!-- Nominal Besar -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/on_surface_variant"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:id="@+id/tvAmountDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/on_surface" />
+    </LinearLayout>
+
+    <!-- Date Picker Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDatePicker"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Hari ini, 7 Jul 2026"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/on_surface"
+        app:icon="@drawable/ic_calendar"
+        app:iconTint="@color/on_surface_variant"
+        app:iconGravity="textStart"
+        app:cornerRadius="999dp"
+        app:strokeColor="@color/border_input"
+        app:strokeWidth="1dp" />
+
+    <!-- ===== NUMPAD GRID ===== -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="24dp"
+        android:columnCount="3"
+        android:rowCount="4">
+
+        <TextView android:id="@+id/key1" style="@style/NumpadKey" android:text="1" />
+        <TextView android:id="@+id/key2" style="@style/NumpadKey" android:text="2" />
+        <TextView android:id="@+id/key3" style="@style/NumpadKey" android:text="3" />
+
+        <TextView android:id="@+id/key4" style="@style/NumpadKey" android:text="4" />
+        <TextView android:id="@+id/key5" style="@style/NumpadKey" android:text="5" />
+        <TextView android:id="@+id/key6" style="@style/NumpadKey" android:text="6" />
+
+        <TextView android:id="@+id/key7" style="@style/NumpadKey" android:text="7" />
+        <TextView android:id="@+id/key8" style="@style/NumpadKey" android:text="8" />
+        <TextView android:id="@+id/key9" style="@style/NumpadKey" android:text="9" />
+
+        <TextView android:id="@+id/key000" style="@style/NumpadKey" android:text="000" />
+        <TextView android:id="@+id/key0" style="@style/NumpadKey" android:text="0" />
+
+        <ImageButton
+            android:id="@+id/keyBackspace"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/bg_numpad_key"
+            android:src="@drawable/ic_backspace"
+            android:contentDescription="Backspace" />
+    </GridLayout>
+
+    <!-- Tombol Simpan -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="24dp"
+        android:text="Simpan"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primary"
+        app:cornerRadius="999dp"
+        app:elevation="0dp" />
+
+</LinearLayout>

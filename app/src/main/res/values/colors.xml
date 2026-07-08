@@ -21,6 +21,7 @@
     <!-- Border pastel transparan -->
     <color name="border_mint_soft">#332c6956</color>
     <color name="track_progress_bg">#e8ece9</color>
+    <color name="border_input">#1a191c1e</color>
 
     <!-- Warna tambahan buat halaman Login -->
     <color name="mint_primary">#5FBF9F</color>
@@ -30,4 +31,21 @@
     <color name="field_background">#F5F5F5</color>
     <color name="divider_gray">#E0E0E0</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Warna buat Detail Alokasi-->
+    <color name="on_primary">#ffffff</color>
+    <color name="deposit_green">#2e7d32</color>
+    <color name="deposit_green_container">#dcf5df</color>
+
+    <!-- Warna buat Stats-->
+    <color name="badge_mint">#a8e6cf</color>
+    <color name="badge_pink">#ffd1dc</color>
+    <color name="badge_lavender">#e2d2ff</color>
+
+    <!-- Warna buat Events Completed-->
+    <color name="bg_screen">#f7f9fb</color>
+    <color name="progress_track">#f0f0f0</color>
+    <color name="pastel_pink">#FCE4EC</color>
+    <color name="pastel_lavender">#EDE7F6</color>
+    <color name="pastel_mint">#E0F2F1</color>
 </resources>

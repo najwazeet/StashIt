@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/border_mint_soft"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/tertiary_container" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAllocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiket Pesawat"
+                android:textSize="15sp"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface" />
+
+            <TextView
+                android:id="@+id/tvAllocationAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Rp 1.500.000"
+                android:textSize="13sp"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnDeleteAllocation"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_delete"
+            android:contentDescription="Delete" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
