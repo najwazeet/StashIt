@@ -93,15 +93,14 @@ class HomeFragment : Fragment() {
     private fun loadAcaraData() {
         lifecycleScope.launch {
             try {
-                val acaraList = repository.getAcaraList()
-                    .sortedBy { parseTanggal(it.tanggal)?.time ?: Long.MAX_VALUE }
+                val acaraWithTotals = repository.getAcaraWithTotals()
+                    .sortedBy { parseTanggal(it.acara.tanggal)?.time ?: Long.MAX_VALUE }
 
-                val uiModelList = acaraList.map { acara ->
-                    val rincianList = repository.getRincianBiayaList(acara.idAcara)
-                    val totalTerkumpul = rincianList.sumOf { it.nominal_terkumpul }
-                    val totalTarget = rincianList.sumOf { it.target_nominal }
-                    AcaraUiModel(acara, totalTerkumpul, totalTarget)
-                }
+                // Acara yang sudah completed (totalTerkumpul >= totalTarget) disembunyikan
+                // dari dashboard, karena sudah dipindah ke halaman "Event Completed"
+                val uiModelList = acaraWithTotals
+                    .filter { !it.isCompleted }
+                    .map { AcaraUiModel(it.acara, it.totalTerkumpul.toDouble(), it.totalTarget.toDouble()) }
 
                 binding.rvAcara.adapter = AcaraAdapter(uiModelList) { acara ->
                     val intent = Intent(requireContext(), DetailEventActivity::class.java)
@@ -109,8 +108,10 @@ class HomeFragment : Fragment() {
                     startActivity(intent)
                 }
 
-                val totalTerkumpul = uiModelList.sumOf { it.totalTerkumpul }
-                val totalTarget = uiModelList.sumOf { it.totalTarget }
+                // Total tabungan tetap dihitung dari SEMUA acara (termasuk yang completed),
+                // karena ini merepresentasikan total tabungan pengguna secara keseluruhan
+                val totalTerkumpul = acaraWithTotals.sumOf { it.totalTerkumpul }.toDouble()
+                val totalTarget = acaraWithTotals.sumOf { it.totalTarget }.toDouble()
                 val persentase = if (totalTarget == 0.0) 0
                 else ((totalTerkumpul / totalTarget) * 100).toInt().coerceIn(0, 100)
                 val sisa = (totalTarget - totalTerkumpul).coerceAtLeast(0.0)
