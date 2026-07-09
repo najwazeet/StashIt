@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class HomeFragment : Fragment() {
@@ -92,6 +94,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val acaraList = repository.getAcaraList()
+                    .sortedBy { parseTanggal(it.tanggal)?.time ?: Long.MAX_VALUE }
 
                 val uiModelList = acaraList.map { acara ->
                     val rincianList = repository.getRincianBiayaList(acara.idAcara)
@@ -125,6 +128,21 @@ class HomeFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    /**
+     * Parse string tanggal format "dd MMMM yyyy" (contoh: "31 Desember 2026")
+     * menjadi Date, biar bisa diurutkan secara kronologis.
+     * Return null kalau gagal parse (misal format tanggal tidak sesuai),
+     * supaya acara dengan tanggal tidak valid ditaruh di paling akhir, bukan bikin app crash.
+     */
+    private fun parseTanggal(tanggal: String): Date? {
+        return try {
+            val sdf = SimpleDateFormat("dd MMMM yyyy", Locale("in", "ID"))
+            sdf.parse(tanggal)
+        } catch (e: Exception) {
+            null
         }
     }
 
